@@ -4,7 +4,7 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Migrations
 
 {
 
-    [Migration(20251010)]
+    [Migration(20250910)]
 
     public class CreateTableTasks : Migration
 
@@ -13,7 +13,7 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Migrations
         public override void Up()
 
         {
-            Create.Table("Tasks")
+            Create.Table("Tasks").InSchema("dbo")
                 .WithColumn("Id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("Title").AsString().NotNullable()
                 .WithColumn("Description").AsString().NotNullable()
