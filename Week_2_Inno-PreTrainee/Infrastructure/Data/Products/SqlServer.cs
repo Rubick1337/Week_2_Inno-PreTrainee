@@ -10,7 +10,7 @@ using Microsoft.Data.SqlClient;
 
 namespace Week_2_Inno_PreTrainee.Infrastructure.Data.Products
 {
-    internal class SqlServer : IDataBaseConnection
+    public class SqlServer : IDataBaseConnection
     {
         private readonly SqlConnection _connection;
         private readonly string _typeDataBase;
@@ -27,6 +27,14 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Data.Products
         public IDbConnection GetConnection()
         {
         return _connection; 
+        }
+        public void Open()
+        {
+            _connection.Open();
+        }
+        public void Close()
+        {
+            _connection.Close();
         }
     }
 }
