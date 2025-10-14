@@ -11,5 +11,8 @@ namespace Week_2_Inno_PreTrainee.Core.Interfaces
     {
         IDbConnection GetConnection();
         string GetDatabaseType();
+
+        void Open(); 
+        void Close();
     }
 }
