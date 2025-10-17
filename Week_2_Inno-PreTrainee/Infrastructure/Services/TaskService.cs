@@ -30,11 +30,7 @@ namespace Week_2_Inno_PreTrainee.Core.Services
 
         public async Task AddTaskAsync(string title, string description)
         {
-            if (string.IsNullOrWhiteSpace(title))
-            {
-                throw new ArgumentException("Название задачи не может быть пустым");
-            }
-                
+
             try
             {
                 var task = new TaskEntity
@@ -55,11 +51,6 @@ namespace Week_2_Inno_PreTrainee.Core.Services
 
         public async Task DeleteTaskAsync(int id)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("ID должен быть больше 0");
-            }
-
             try
             {
                 await _taskRepository.DeleteAsync(id);
@@ -72,11 +63,6 @@ namespace Week_2_Inno_PreTrainee.Core.Services
 
         public async Task UpdateTaskStatusAsync(int id, bool isCompleted)
         {
-            if (id <= 0)
-            {
-                throw new ArgumentException("ID должен быть больше 0");
-            }
-               
             try
             {
                 await _taskRepository.UpdateStatusAsync(id, isCompleted);

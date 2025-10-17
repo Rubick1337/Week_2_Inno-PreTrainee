@@ -30,8 +30,6 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Repository
         public async Task DeleteAsync(int id)
         {
             var sql = $"DELETE FROM {_tableName} WHERE Id = @id";
-            //var parametrs = new DynamicParameters();
-            //parametrs.Add("@id", id);
             await _connection.ExecuteAsync(sql, new { id });
         }
         public void Dispose()
