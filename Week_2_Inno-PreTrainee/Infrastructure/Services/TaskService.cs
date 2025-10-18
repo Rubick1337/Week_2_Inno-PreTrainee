@@ -4,35 +4,33 @@ using TaskEntity = Week_2_Inno_PreTrainee.Core.Entities.Task;
 using Week_2_Inno_PreTrainee.Core.Interfaces;
 using System.Linq;
 using System.Threading.Tasks;
+using Week_2_Inno_PreTrainee.Application.Handler;
 
 namespace Week_2_Inno_PreTrainee.Core.Services
 {
     public class TaskService : IDisposable
     {
         private readonly IRepository<TaskEntity> _taskRepository;
+        private readonly ExceptionHandler _exceptionHandler;
 
-        public TaskService(IRepository<TaskEntity> taskRepository)
+        public TaskService
+            (IRepository<TaskEntity> taskRepository, 
+            ExceptionHandler exceptionHandler
+            )
         {
+            _exceptionHandler = exceptionHandler;
             _taskRepository = taskRepository;
         }
 
         public async Task < IEnumerable<TaskEntity>> GetAllTasksAsync()
         {
-            try
-            {
-                return await _taskRepository.GetAllAsync();
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Ошибка при получении задач: " + ex.Message, ex);
-            }
+            return await _exceptionHandler.HandleAsyncValue(_taskRepository.GetAllAsync())
+                   ?? new List<TaskEntity>();
         }
 
         public async Task AddTaskAsync(string title, string description)
         {
 
-            try
-            {
                 var task = new TaskEntity
                 {
                     Title = title.Trim(),
@@ -41,36 +39,17 @@ namespace Week_2_Inno_PreTrainee.Core.Services
                     CreatedAt = DateTime.Now
                 };
 
-                await _taskRepository.CreateAsync(task);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException("Ошибка при создании задачи: " + ex.Message, ex);
-            }
+              await _exceptionHandler.HandleAsyncVoid(_taskRepository.CreateAsync(task));
         }
 
         public async Task DeleteTaskAsync(int id)
         {
-            try
-            {
-                await _taskRepository.DeleteAsync(id);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Ошибка при удалении задачи {id}: " + ex.Message, ex);
-            }
+            await _exceptionHandler.HandleAsyncVoid(_taskRepository.DeleteAsync(id));
         }
 
         public async Task UpdateTaskStatusAsync(int id, bool isCompleted)
         {
-            try
-            {
-                await _taskRepository.UpdateStatusAsync(id, isCompleted);
-            }
-            catch (Exception ex)
-            {
-                throw new ApplicationException($"Ошибка при обновлении задачи {id}: " + ex.Message, ex);
-            }
+            await _exceptionHandler.HandleAsyncVoid(_taskRepository.UpdateStatusAsync(id, isCompleted));
         }
 
         public void Dispose()
