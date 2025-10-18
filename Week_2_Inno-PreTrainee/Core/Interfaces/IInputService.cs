@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace Week_2_Inno_PreTrainee.Core.Interfaces
 {
-    public interface IOutputService
+    public interface IInputService
     {
-        void WriteLine(string message);
-        void WriteError(string message);
-        void Clear();
+        string ReadLine();
+        ConsoleKeyInfo ReadKey();
     }
 }
