@@ -1,49 +1,58 @@
-﻿using System;
+﻿using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Week_2_Inno_PreTrainee.Application.Handlers;
+using Week_2_Inno_PreTrainee.Application.Services;
+using Week_2_Inno_PreTrainee.Core.Interfaces;
 
 namespace Week_2_Inno_PreTrainee.Application.Validator
 {
     public class InputValidator
     {
-        public static int ReadPositiveInt(string prompt)
+        private readonly IOutputService _output;
+        private readonly IInputService _input;
+        public InputValidator(IOutputService output,IInputService input) 
+        {
+            _output = output;
+            _input = input;
+        }
+        public int ReadPositiveInt(string prompt)
         {
             while (true)
             {
-                Console.Write(prompt);
-                var input = Console.ReadLine();
+                _output.WriteLine(prompt);
+                var input = _input.ReadLine();
 
                 if (int.TryParse(input, out int result) && result > 0)
                 {
                     return result;
                 }
 
-                ErrorHendler.ShowError("Неверный ввод. Введите положительное число.");
+                _output.WriteError("Неверный ввод. Введите положительное число.");
             }
         }
-        public static string ReadPositiveString(string prompt)
+        public string ReadPositiveString(string prompt)
         {
             while (true)
             {
-                Console.Write(prompt);
-                var input = Console.ReadLine().Trim();
+                _output.WriteLine(prompt);
+                var input = _input.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    ErrorHendler.ShowError("Поле не может быть пустым.");
+                    _output.WriteError("Поле не может быть пустым.");
                     continue;
                 }
                 return input;
             }
         }
-        public static bool ConfirmAction(string message)
+        public  bool ConfirmAction(string message)
         {
-            Console.WriteLine(message);
+            _output.WriteLine(message);
 
-            ConsoleKeyInfo input = Console.ReadKey();
+            ConsoleKeyInfo input = _input.ReadKey();
 
             if (input.Key == ConsoleKey.Enter)
             {
@@ -55,19 +64,19 @@ namespace Week_2_Inno_PreTrainee.Application.Validator
             }
         }
 
-        public static int ReadMenuChoice(string prompt, int minChoice, int maxChoice)
+        public  int ReadMenuChoice(string prompt, int minChoice, int maxChoice)
         {
             while (true)
             {
-                Console.Write(prompt);
-                var input = Console.ReadLine();
+                _output.WriteLine(prompt);
+                var input = _input.ReadLine();
 
                 if (int.TryParse(input, out int choice) && choice >= minChoice && choice <= maxChoice)
                 {
                     return choice;
                 }
 
-                ErrorHendler.ShowError($"Неверный выбор. Введите число от {minChoice} до {maxChoice}.");
+                _output.WriteError($"Неверный выбор. Введите число от {minChoice} до {maxChoice}.");
             }
         }
 

@@ -10,7 +10,7 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Migrations
 {
     public class RunMigrations
     {
-        public static void ExecuteMigratuins(string connectionString)
+        public static void ExecuteMigrations(string connectionString)
         {
             var serviceProvider = new ServiceCollection()
                 .AddFluentMigratorCore()
