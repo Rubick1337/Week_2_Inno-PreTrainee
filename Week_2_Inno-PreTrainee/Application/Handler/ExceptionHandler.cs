@@ -38,6 +38,29 @@ namespace Week_2_Inno_PreTrainee.Application.Handler
                 _output.WriteError($"Ошибка: {ex.Message}");
             }
         }
+        public void HandleVoid(Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch(Exception ex) 
+            {
+                _output.WriteError($"Ошибка: {ex.Message}");
+            }
+        }
+        public T HandleValueWithThrow<T>(Func<T> action)
+        {
+            try
+            {
+                return action();
+            }
+            catch (Exception ex)
+            {
+                _output.WriteError($"Ошибка: {ex.Message}");
+                throw;
+            }
+        }
     }
 
 }

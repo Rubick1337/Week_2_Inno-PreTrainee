@@ -19,7 +19,7 @@ class Program
         var outputService = new ConsoleOutputService();
         var inputService = new ConsoleInputService();
         var exceptionHandler = new ExceptionHandler(outputService);
-        var config = new ConfigReader(outputService);
+        var config = new ConfigReader(outputService,exceptionHandler);
         var connectionString = config.GetConnectionString("SqlServer");
 
         RunMigrations.ExecuteMigrations(connectionString);
