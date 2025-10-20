@@ -13,9 +13,18 @@ namespace Week_2_Inno_PreTrainee.Application.UI
     {
         private readonly TaskManager _taskManager;
         private readonly IOutputService _output;
-        private readonly InputValidator _inputValidator;
+        private readonly InputHandler _inputValidator;
 
-        public MenuManager(TaskManager taskManager, IOutputService output, InputValidator inputValidator)
+        private  enum MenuOptions
+        {
+            exit = 0,
+            showAllTask = 1,
+            addTask = 2,
+            deleteTask = 3,
+            markAsCompleted = 4,
+            markAsInCompleted = 5,
+        }
+        public MenuManager(TaskManager taskManager, IOutputService output, InputHandler inputValidator)
         {
             _taskManager = taskManager;
             _output = output;
@@ -43,23 +52,23 @@ namespace Week_2_Inno_PreTrainee.Application.UI
             _output.WriteLine("5. Отметить как невыполненную");
             _output.WriteLine("0. Выход");
 
-            var choice = _inputValidator.ReadMenuChoice("Выберите действие: ", 0, 5);
+            var choice = _inputValidator.ReadMenuChoice("Выберите действие: ", (int)MenuOptions.exit, (int)MenuOptions.markAsCompleted);
 
             switch (choice)
             {
-                case 1:
+                case (int)MenuOptions.showAllTask:
                     await _taskManager.ShowAllTasksAsync();  
                     break;
-                case 2:
+                case (int)MenuOptions.addTask:
                     await _taskManager.AddNewTaskAsync();    
                     break;
-                case 3:
+                case (int)MenuOptions.deleteTask:
                     await _taskManager.DeleteTaskAsync();    
                     break;
-                case 4:
+                case (int)MenuOptions.markAsCompleted:
                     await _taskManager.UpdateTaskStatusAsync(true);  
                     break;
-                case 5:
+                case (int)MenuOptions.markAsInCompleted:
                     await _taskManager.UpdateTaskStatusAsync(false); 
                     break;
                 case 0:
