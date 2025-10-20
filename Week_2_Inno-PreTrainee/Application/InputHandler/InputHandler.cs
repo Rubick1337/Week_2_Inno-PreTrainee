@@ -9,11 +9,11 @@ using Week_2_Inno_PreTrainee.Core.Interfaces;
 
 namespace Week_2_Inno_PreTrainee.Application.Validator
 {
-    public class InputValidator
+    public class InputHandler
     {
         private readonly IOutputService _output;
         private readonly IInputService _input;
-        public InputValidator(IOutputService output,IInputService input) 
+        public InputHandler(IOutputService output,IInputService input) 
         {
             _output = output;
             _input = input;

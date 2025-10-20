@@ -12,12 +12,12 @@ namespace Week_2_Inno_PreTrainee.Application.Services.Tasks
     {
         private readonly IOutputService _output;
         private readonly IInputService _input;
-        private readonly InputValidator _validator;
+        private readonly InputHandler _validator;
 
         public UserInteractionTaskService(
             IOutputService output,
             IInputService input,
-            InputValidator validator)
+            InputHandler validator)
         {
             _output = output;
             _input = input;

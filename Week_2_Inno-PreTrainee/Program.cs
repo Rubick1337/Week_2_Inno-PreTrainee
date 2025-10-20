@@ -34,7 +34,7 @@ class Program
             var taskRepository = new SqlServerTaskRepository(dbConnection);
             var taskService = new TaskService(taskRepository, exceptionHandler);
 
-            var inputValidator = new InputValidator(outputService,inputService);
+            var inputValidator = new InputHandler(outputService,inputService);
 
             var displayService = new TaskDisplayService(outputService);
             var interactionService = new UserInteractionTaskService(outputService, inputService, inputValidator);
