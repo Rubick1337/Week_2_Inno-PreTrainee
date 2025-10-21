@@ -3,17 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Week_2_Inno_PreTrainee.Core.Factories;
-using Week_2_Inno_PreTrainee.Core.Interfaces;
-using Week_2_Inno_PreTrainee.Infrastructure.Data.Products;
+using Week_2_Inno_PreTrainee.Data.Factories;
+using Week_2_Inno_PreTrainee.Data.Interfaces;
+using Week_2_Inno_PreTrainee.Data.ProductsConnection;
 
-namespace Week_2_Inno_PreTrainee.Infrastructure.Data.Factories
+namespace Week_2_Inno_PreTrainee.Data.FactoriesConnection.SqlServerConnecyion
 {
-    internal class SqlServerFactory : DatabaseConnectionFactory
+    internal class SqlServerConnectionFactory : DatabaseConnectionFactory
     {
         private readonly string _stringConnection;
 
-        public SqlServerFactory(string stringConnection)
+        public SqlServerConnectionFactory(string stringConnection)
         {
             _stringConnection = stringConnection;
         }

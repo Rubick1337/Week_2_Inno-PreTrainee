@@ -4,11 +4,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Week_2_Inno_PreTrainee.Core.Interfaces;
 
 using Microsoft.Data.SqlClient;
+using Week_2_Inno_PreTrainee.Data.Interfaces;
 
-namespace Week_2_Inno_PreTrainee.Infrastructure.Data.Products
+namespace Week_2_Inno_PreTrainee.Data.ProductsConnection
 {
     public class SqlServer : IDataBaseConnection
     {
@@ -26,7 +26,7 @@ namespace Week_2_Inno_PreTrainee.Infrastructure.Data.Products
         }
         public IDbConnection GetConnection()
         {
-        return _connection; 
+            return _connection;
         }
         public void Open()
         {
